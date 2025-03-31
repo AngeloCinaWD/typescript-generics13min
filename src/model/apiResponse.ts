@@ -55,3 +55,35 @@ const response4: BlogResponse = {
     title: 'Sono un blog',
   },
 };
+
+// è possibile passare un valore di default al type della generica
+type ApiResponse3<T = { status: number }> = {
+  data: T;
+};
+
+// in questo modo posso assegnare il type senza definire il valore di T
+// se non passo niente la property data è un oggetto contenente una property status di tipo number
+const response5: ApiResponse3 = {
+  data: {
+    status: 400,
+  },
+};
+
+// se definisco il valore di T viene sovrascritto quello di default
+const response6: ApiResponse3<{ proprietà: string }> = {
+  data: {
+    proprietà: 'sovrascritto valore di default di T',
+  },
+};
+
+// dichiaro che T deve essere per forza un object, non importa cosa contiene
+type ApiResponse4<T extends object> = {
+  data: T;
+};
+
+// posso definire T anche oggetto vuoto, l'importante è che data sia un object
+const response7: ApiResponse4<{}> = {
+  data: {
+    g: 'ciao',
+  },
+};
